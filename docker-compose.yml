@@ -1,0 +1,52 @@
+version: '3.9'
+services:
+  mongo:
+    image: mongo:6.0.4
+    ports:
+      - '27017'
+    volumes:
+      - mongoVolume:/data/db
+    command: --quiet
+
+  minio:
+    image: minio/minio:RELEASE.2023-01-31T02-24-19Z
+    ports:
+      - '9000'
+      - '9001'
+    volumes:
+      - minioVolume:/data
+    command: server /data --console-address ":9001"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    ports:
+      - 3000:3000
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    ports:
+      - 3001:3001
+    depends_on:
+      - mongo
+      - minio
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    environment:
+      - NODE_CONFIG_ENV=docker_compose
+
+volumes:
+  minioVolume:
+  mongoVolume:

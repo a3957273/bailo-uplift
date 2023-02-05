@@ -1,7 +1,7 @@
 FROM node:16-alpine as builder
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Install app dependencies
 COPY package*.json ./
@@ -15,7 +15,7 @@ RUN npm run build
 FROM node:16-alpine as prod
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
@@ -26,8 +26,8 @@ COPY package*.json ./
 RUN npm ci --omit=dev
 
 # Bundle app source
-COPY --from=builder /usr/src/app/dist dist
-COPY --from=builder /usr/src/app/config config
+COPY --from=builder /app/dist dist
+COPY --from=builder /app/config config
 
 EXPOSE 3006
-CMD [ "node", "dist/index.js" ]
+CMD [ "node", "dist/src/index.js" ]

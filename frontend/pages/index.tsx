@@ -24,7 +24,7 @@ export default function Home() {
             }}
           >
             <Typography variant='h4' component='h1' gutterBottom>
-              Bailo Uplift (37)
+              Bailo Uplift (42)
             </Typography>
             <Example />
             <Link href='/' color='secondary'>

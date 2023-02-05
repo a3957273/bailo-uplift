@@ -11,6 +11,17 @@ const nextConfig = {
       transform: '@mui/material/{{member}}',
     },
   },
+
+  async rewrites() {
+    // if (!isDevelopment) return []
+
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://backend:3001/api/:path*',
+      },
+    ]
+  },
 }
 
 export default nextConfig

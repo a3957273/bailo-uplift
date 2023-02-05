@@ -1,16 +1,25 @@
 import _config from 'config'
 
-interface Server {
+interface API {
   port: number
 }
 
+interface Mongo {
+  uri: string
+}
+
 interface Config {
-  server: Server
+  api: API
+  mongo: Mongo
 }
 
 const config: Config = {
-  server: {
+  api: {
     port: _config.get('server.port'),
+  },
+
+  mongo: {
+    uri: _config.get('mongo.uri'),
   },
 }
 
