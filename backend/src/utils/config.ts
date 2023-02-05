@@ -1,17 +1,17 @@
-import _config from "config";
+import _config from 'config'
 
 interface Server {
-  port: number;
+  port: number
 }
 
 interface Config {
-  server: Server;
+  server: Server
 }
 
 const config: Config = {
   server: {
-    port: _config.get("server.port"),
+    port: _config.get('server.port'),
   },
-};
+}
 
-export default config;
+export default config

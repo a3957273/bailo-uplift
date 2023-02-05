@@ -9,6 +9,15 @@
     "lint": "next lint",
     "test": "jest"
   },
+  "prettier": {
+    "jsxSingleQuote": true,
+    "printWidth": 120,
+    "proseWrap": "always",
+    "semi": false,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "useTabs": false
+  },
   "dependencies": {
     "@emotion/cache": "^11.10.5",
     "@emotion/react": "^11.10.5",

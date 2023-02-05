@@ -3,4 +3,4 @@ module.exports = {
     // Port for webserver to listen on
     port: 3006,
   },
-};
+}

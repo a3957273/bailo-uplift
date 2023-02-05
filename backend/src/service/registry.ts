@@ -3,11 +3,11 @@ class Registry {
 
   someFunc(branch: boolean, notUsed: string) {
     if (branch) {
-      return true;
+      return true
     } else {
-      return false;
+      return false
     }
   }
 }
 
-export default Registry;
+export default Registry
