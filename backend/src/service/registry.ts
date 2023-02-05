@@ -1,7 +1,5 @@
 class Registry {
-  constructor() {}
-
-  someFunc(branch: boolean, notUsed: string) {
+  someFunc(branch: boolean, _notUsed: string) {
     if (branch) {
       return true
     } else {
