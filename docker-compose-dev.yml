@@ -1,0 +1,56 @@
+version: '3.9'
+services:
+  mongo:
+    image: mongo:6.0.4
+    ports:
+      - 27017
+    volumes:
+      - mongoVolume:/data/db
+    command: --quiet
+
+  minio:
+    image: minio/minio:RELEASE.2023-01-31T02-24-19Z
+    ports:
+      - 9000
+      - 9001
+    volumes:
+      - minioVolume:/data
+    command: server /data --console-address ":9001"
+
+  nginx:
+    image: nginx:1.23.3
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:8080
+    depends_on:
+      - app
+
+  app:
+    build:
+      args:
+        # set to your uid (get by running `id` or `echo ${UID}`)
+        # We do this so that you can mount the app directory into the container
+        # and the container user can access the files (and populate node_modules via npm install)
+        # This is only for developer convenience so that changes on host files are immediately
+        # reflected in the running app
+        - user_id=REPLACE_WITH_UID
+      context: .
+      dockerfile: Dockerfile.dev
+    #network_mode: "host"
+    volumes:
+      - ./:/home/user/app
+    ports:
+      - 3000
+    depends_on:
+      - mongo
+      - minio
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    environment:
+      - NODE_CONFIG_ENV=docker_compose
+
+volumes:
+  minioVolume:
+  mongoVolume:

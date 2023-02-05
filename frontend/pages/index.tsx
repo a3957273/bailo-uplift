@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import Example from 'components/Example'
 import { Box, Container, Typography } from '@mui/material'
 import Link from 'components/Link'
+import Example from 'components/Example'
 
 export default function Home() {
   return (
