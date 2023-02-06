@@ -2,18 +2,14 @@ import getDefaultProps from 'components/getDefaultProps'
 import Wrapper from 'components/Wrapper'
 import { InferGetServerSidePropsType } from 'next'
 
-function Marketplace() {
-  return (
-    <div>
-      <p>Hello from marketplace3</p>
-    </div>
-  )
+function Deployments() {
+  return <p>Hello from deployments4</p>
 }
 
 export default function Outer({ config }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
-    <Wrapper page='marketplace' title='Marketplace' config={config}>
-      <Marketplace />
+    <Wrapper page='deployments' title='Deployments' config={config}>
+      <Deployments />
     </Wrapper>
   )
 }

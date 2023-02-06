@@ -10,6 +10,9 @@ const nextConfig = {
     '@mui/material': {
       transform: '@mui/material/{{member}}',
     },
+    '@mui/icons-material': {
+      transform: '@mui/icons-material/{{member}}',
+    },
   },
 
   async rewrites() {

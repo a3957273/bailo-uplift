@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals'
-import Registry from '../src/service/registry.js'
+import Registry from '../src/services/registry.js'
 
 describe('registry tests', () => {
   test('true branch', () => {

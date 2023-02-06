@@ -20,10 +20,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile.dev
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      dockerfile: Dockerfile
     depends_on:
       - backend
     ports:
@@ -32,10 +29,7 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile.dev
-    volumes:
-      - ./backend:/app/test
-      - /app/test/node_modules
+      dockerfile: Dockerfile
     ports:
       - 3001:3001
     depends_on:
