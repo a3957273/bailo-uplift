@@ -1,27 +1,19 @@
 import _config from 'config'
 
-interface API {
-  port: number
-}
-
-interface Mongo {
-  uri: string
-}
-
-interface Banner {
-  enabled: boolean
-  text: string
-  colour: string
-}
-
-interface UI {
-  banner: Banner
-}
-
 interface Config {
-  api: API
-  mongo: Mongo
-  ui: UI
+  api: {
+    port: number
+  }
+  mongo: {
+    uri: string
+  }
+  ui: {
+    banner: {
+      enabled: boolean
+      text: string
+      colour: string
+    }
+  }
 }
 
 const config: Config = {

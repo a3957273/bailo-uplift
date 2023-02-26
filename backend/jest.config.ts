@@ -7,6 +7,9 @@ const config: Config.InitialOptions = {
     '^.+\\.(t|j)sx?$': '@swc/jest',
   },
   transformIgnorePatterns: [],
-  resolver: 'jest-ts-webcompat-resolver',
+  modulePathIgnorePatterns: ['dist'],
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
 }
 export default config

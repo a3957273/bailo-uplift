@@ -1,7 +1,8 @@
+import { UiConfig } from '@bailo/shared'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 
 interface DefaultProps {
-  config: unknown
+  config: UiConfig
 }
 
 export default async function getDefaultProps({

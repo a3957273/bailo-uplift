@@ -10,7 +10,7 @@ describe('basic tests', () => {
   })
 
   test('config port set', () => {
-    expect(config.api.port).toBe(3006)
+    expect(config.api.port).toBe(3001)
   })
 
   test('can add 1 + 2 with spy', () => {

@@ -1,0 +1,8 @@
+{
+  "name": "bailo",
+  "workspaces": [
+    "shared",
+    "frontend",
+    "backend"
+  ]
+}

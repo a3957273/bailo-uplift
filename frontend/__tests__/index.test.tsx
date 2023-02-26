@@ -1,12 +1,24 @@
 import { render, screen } from '@testing-library/react'
-import Home from '../pages/index'
+import Index from '../pages/index'
 import '@testing-library/jest-dom'
 
 jest.mock('next/router', () => require('next-router-mock'))
 
 describe('Home', () => {
   it('renders a heading', () => {
-    render(<Home />)
+    render(
+      <Index
+        config={{
+          ui: {
+            banner: {
+              enabled: true,
+              colour: 'red',
+              text: 'example',
+            },
+          },
+        }}
+      />
+    )
 
     const banner = screen.getByText('Hello from Example')
     expect(banner).toBeInTheDocument()
