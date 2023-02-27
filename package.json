@@ -9,7 +9,8 @@
     "test": "turbo run test"
   },
   "workspaces": [
-    "shared",
+    "lib/shared",
+    "lib/node",
     "frontend",
     "backend"
   ],

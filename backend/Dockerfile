@@ -39,7 +39,7 @@ COPY --from=installer /app/backend/dist backend/dist
 COPY --from=installer /app/backend/package-lock.json backend/package-lock.json
 COPY --from=installer /app/backend/package.json backend/package.json
 
-COPY --from=installer /app/shared shared
+COPY --from=installer /app/lib/shared lib/shared
 
 COPY --from=installer /app/package-lock.json package-lock.json
 COPY --from=installer /app/package.json package.json
