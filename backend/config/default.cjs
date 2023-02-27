@@ -5,7 +5,25 @@ module.exports = {
   },
 
   mongo: {
-    uri: 'mongodb://127.0.0.1:27017/bailo',
+    uri: 'mongodb://mongo:27017/bailo',
+  },
+
+  minio: {
+    connection: {
+      endPoint: 'minio',
+      port: 9000,
+      useSSL: false,
+      accessKey: 'minioadmin',
+      secretKey: 'minioadmin',
+      region: '',
+    },
+
+    automaticallyCreateBuckets: true,
+
+    buckets: {
+      uploads: 'uploads',
+      registry: 'registry',
+    },
   },
 
   ui: {

@@ -7,6 +7,16 @@ interface Config {
   mongo: {
     uri: string
   }
+  minio: {
+    connection: any
+
+    automaticallyCreateBuckets: boolean
+
+    buckets: {
+      uploads: string
+      registry: string
+    }
+  }
   ui: {
     banner: {
       enabled: boolean
@@ -23,6 +33,17 @@ const config: Config = {
 
   mongo: {
     uri: _config.get('mongo.uri'),
+  },
+
+  minio: {
+    connection: _config.get('minio.connection'),
+
+    automaticallyCreateBuckets: _config.get('minio.automaticallyCreateBuckets'),
+
+    buckets: {
+      uploads: _config.get('minio.buckets.uploads'),
+      registry: _config.get('minio.buckets.registry'),
+    },
   },
 
   ui: {

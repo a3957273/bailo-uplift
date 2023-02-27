@@ -10,6 +10,7 @@
     "outDir": "dist",
     "resolveJsonModule": true
   },
+  "include": ["global.d.ts", "src/**/*"],
   "ts-node": {
     "esm": true,
     "swc": true

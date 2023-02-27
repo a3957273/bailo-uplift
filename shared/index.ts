@@ -1,7 +1,3 @@
-export interface Model {
-  name: string
-}
-
 export interface UiConfig {
   ui: {
     banner: {
