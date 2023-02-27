@@ -2,37 +2,11 @@ import * as React from 'react'
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
-import Link from '../Link'
-import {
-  ListItemIcon,
-  ListItemText,
-  Tooltip,
-  Badge,
-  IconButton,
-  Divider,
-  Typography,
-  List,
-  Toolbar,
-  Box,
-  Drawer as MuiDrawer,
-  ListItemButton,
-} from '@mui/material'
-import {
-  AdminPanelSettingsTwoTone,
-  ContactSupportTwoTone,
-  DashboardTwoTone,
-  FileUploadTwoTone,
-  LinkTwoTone,
-  ListAltTwoTone,
-  SchemaTwoTone,
-  ViewListTwoTone,
-  ChevronLeft,
-  Notifications,
-  Menu,
-} from '@mui/icons-material'
+import { Badge, IconButton, Divider, Typography, List, Toolbar, Box, Drawer as MuiDrawer } from '@mui/material'
+import { DashboardTwoTone, ViewListTwoTone, ChevronLeft, Notifications, Menu } from '@mui/icons-material'
 import Head from 'next/head'
-import { UiConfig } from '@bailo/shared'
 import WrapperIcon from './WrapperIcon'
+import { UiConfig } from '@bailo/shared'
 
 const drawerWidth: number = 240
 
