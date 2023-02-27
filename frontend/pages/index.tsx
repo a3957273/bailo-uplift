@@ -1,11 +1,12 @@
 import getDefaultProps from 'components/getDefaultProps'
-import Wrapper from 'components/Wrapper'
+import Wrapper from 'components/wrapper/Wrapper'
 import { InferGetServerSidePropsType } from 'next'
 
 function Marketplace() {
   return (
     <div>
       <p>Hello from marketplace3</p>
+      <p>This is another message2</p>
     </div>
   )
 }

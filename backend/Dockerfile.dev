@@ -1,10 +1,29 @@
-FROM node:16-alpine as prod
+FROM node:16-alpine as builder
+RUN apk add --no-cache libc6-compat
+RUN apk update
 WORKDIR /app
 
-COPY package*.json ./
+# Install Turbo
+RUN npm install --global turbo
+COPY . .
+RUN turbo prune --scope=@bailo/backend --docker
+
+FROM node:16-alpine as installer
+RUN apk add --no-cache libc6-compat
+RUN apk update
+WORKDIR /app
+
+# First install dependencies (as they change less often)
+COPY .gitignore .gitignore
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/package-lock.json ./package-lock.json
 RUN npm ci
 
-COPY . .
+# Build the project and its dependencies
+COPY --from=builder /app/out/full/ .
+COPY turbo.json turbo.json
+
+WORKDIR /app/backend
 
 EXPOSE 3001
 CMD [ "npm", "run", "dev" ]

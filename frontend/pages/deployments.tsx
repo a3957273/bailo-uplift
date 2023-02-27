@@ -1,5 +1,5 @@
 import getDefaultProps from 'components/getDefaultProps'
-import Wrapper from 'components/Wrapper'
+import Wrapper from 'components/wrapper/Wrapper'
 import { InferGetServerSidePropsType } from 'next'
 
 function Deployments() {

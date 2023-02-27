@@ -1,0 +1,10 @@
+node_modules
+
+backend/.git
+backend/dist
+backend/node_modules
+
+frontend/.git
+frontend/.next
+frontend/.swc
+frontend/node_modules

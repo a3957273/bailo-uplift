@@ -1,10 +1,16 @@
 /** @type {import('next').NextConfig} */
 
+const path = require('path')
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
+
 const isDevelopment = process.env.NODE_ENV === 'development'
 
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
+  transpilePackages: ['@bailo/shared'],
 
   modularizeImports: {
     '@mui/material': {
@@ -16,8 +22,6 @@ const nextConfig = {
   },
 
   async rewrites() {
-    // if (!isDevelopment) return []
-
     return [
       {
         source: '/api/:path*',
@@ -25,6 +29,10 @@ const nextConfig = {
       },
     ]
   },
+
+  experimental: {
+    outputFileTracingRoot: path.join(__dirname, '../../'),
+  },
 }
 
-export default nextConfig
+module.exports = withBundleAnalyzer(nextConfig)

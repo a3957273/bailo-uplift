@@ -1,56 +1,54 @@
-# Install dependencies only when needed
-FROM node:16-alpine AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-
-# Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
-
-
-# Rebuild the source code only when needed
 FROM node:16-alpine AS builder
+RUN apk add --no-cache libc6-compat
+RUN apk update
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+
+RUN npm install --global turbo
 COPY . .
+RUN turbo prune --scope=@bailo/frontend --docker
 
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry during the build.
-# ENV NEXT_TELEMETRY_DISABLED 1
+FROM node:alpine AS installer
+RUN apk add --no-cache libc6-compat
+RUN apk update
+WORKDIR /app
 
-RUN yarn build
+# First install the dependencies (as they change less often)
+COPY .gitignore .gitignore
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/package-lock.json ./package-lock.json
+RUN npm install
 
-# If using npm comment out above and use below instead
-# RUN npm run build
+# Build the project
+COPY --from=builder /app/out/full/ .
+COPY turbo.json turbo.json
 
-# Production image, copy all the files and run next
+# Uncomment and use build args to enable remote caching
+# ARG TURBO_TEAM
+# ENV TURBO_TEAM=$TURBO_TEAM
+
+# ARG TURBO_TOKEN
+# ENV TURBO_TOKEN=$TURBO_TOKEN
+
+RUN npx turbo run build --filter=@bailo/frontend...
+
 FROM node:16-alpine AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
-
+# Don't run production as root
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
+USER nextjs
 
-COPY --from=builder /app/public ./public
+COPY --from=installer /app/frontend/next.config.js .
+COPY --from=installer /app/frontend/package.json .
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-USER nextjs
+COPY --from=installer --chown=nextjs:nodejs /app/frontend/.next/standalone/app ./
+COPY --from=installer --chown=nextjs:nodejs /app/frontend/.next/static ./frontend/.next/static
+COPY --from=installer --chown=nextjs:nodejs /app/frontend/public ./frontend/public
 
 EXPOSE 3000
-
 ENV PORT 3000
 
-CMD ["node", "server.js"]
+CMD ["node", "frontend/server.js"]

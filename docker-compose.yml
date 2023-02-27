@@ -19,11 +19,13 @@ services:
 
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile.dev
+      context: ./
+      dockerfile: ./frontend/Dockerfile.dev
     volumes:
-      - ./frontend:/app
+      - ./:/app
       - /app/node_modules
+      - /app/frontend/node_modules
+      - /app/backend/node_modules
     depends_on:
       - backend
     ports:
@@ -31,19 +33,18 @@ services:
 
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile.dev
+      context: ./
+      dockerfile: ./backend/Dockerfile.dev
     volumes:
-      - ./backend:/app/test
-      - /app/test/node_modules
+      - ./:/app
+      - /app/node_modules
+      - /app/frontend/node_modules
+      - /app/backend/node_modules
     ports:
       - 3001:3001
     depends_on:
       - mongo
       - minio
-    security_opt:
-      - seccomp:unconfined
-      - apparmor:unconfined
     environment:
       - NODE_CONFIG_ENV=docker_compose
 

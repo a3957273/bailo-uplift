@@ -20,7 +20,7 @@ describe('Home', () => {
       />
     )
 
-    const banner = screen.getByText('Hello from Example')
+    const banner = screen.getByText('Hello from marketplace3')
     expect(banner).toBeInTheDocument()
   })
 })

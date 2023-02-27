@@ -1,33 +1,52 @@
+# This Dockerfile expects to be called from the root context (`bailo-upload/`).
+# E.g. `docker build -t "backend" -f ./backend/Dockerfile .`
+
 FROM node:16-alpine as builder
-
-# Create app directory
+RUN apk add --no-cache libc6-compat
+RUN apk update
 WORKDIR /app
 
-# Install app dependencies
-COPY package*.json ./
-
-RUN npm ci
-
+# Install Turbo
+RUN npm install --global turbo
 COPY . .
+RUN turbo prune --scope=@bailo/backend --docker
 
-RUN npm run build
-
-FROM node:16-alpine as prod
-
-# Create app directory
+FROM node:16-alpine as installer
+RUN apk add --no-cache libc6-compat
+RUN apk update
 WORKDIR /app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
+# First install dependencies (as they change less often)
+COPY .gitignore .gitignore
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/package-lock.json ./package-lock.json
+RUN npm install
 
-# If you are building your code for production
+# Build the project and its dependencies
+COPY --from=builder /app/out/full/ .
+COPY turbo.json turbo.json
+
+# Run build
+RUN npx turbo run build --filter=@bailo/backend...
+
+FROM node:16-alpine as runner
+RUN apk add --no-cache libc6-compat
+RUN apk update
+WORKDIR /app
+
+COPY --from=installer /app/backend/config backend/config
+COPY --from=installer /app/backend/dist backend/dist
+COPY --from=installer /app/backend/package-lock.json backend/package-lock.json
+COPY --from=installer /app/backend/package.json backend/package.json
+
+COPY --from=installer /app/shared shared
+
+COPY --from=installer /app/package-lock.json package-lock.json
+COPY --from=installer /app/package.json package.json
+
 RUN npm ci --omit=dev
 
-# Bundle app source
-COPY --from=builder /app/dist dist
-COPY --from=builder /app/config config
+EXPOSE 3001
 
-EXPOSE 3006
+WORKDIR /app/backend
 CMD [ "node", "dist/src/index.js" ]
