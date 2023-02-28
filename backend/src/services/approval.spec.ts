@@ -1,4 +1,5 @@
 import { Types } from 'mongoose'
+import { jest } from '@jest/globals'
 import { ApprovalStates, EntityKind } from '../types/interfaces.js'
 import { DeploymentDoc } from '../models/Deployment.js'
 import ModelModel from '../models/Model.js'
@@ -6,7 +7,6 @@ import ApprovalModel, { ApprovalCategory } from '../models/Approval.js'
 import UserModel from '../models/User.js'
 import VersionModel, { VersionDoc } from '../models/Version.js'
 import '../utils/mockMongo'
-import { sendEmail } from '../utils/smtp.js'
 import {
   createDeploymentApprovals,
   createVersionApprovals,
@@ -14,19 +14,18 @@ import {
   readNumApprovals,
   readApprovals,
 } from './approval.js'
-import { getUserById } from './user.js'
 
-jest.mock('./user.js', () => {
-  const original = jest.requireActual('./user.js')
-  return {
-    ...original,
-    getUserById: jest.fn(),
-  }
-})
+jest.unstable_mockModule('./user.js', () => ({
+  getUserById: jest.fn(),
+}))
 
-jest.mock('../utils/smtp.js', () => ({
+const { getUserById } = await import('./user.js')
+
+jest.unstable_mockModule('../utils/smtp.js', () => ({
   sendEmail: jest.fn(),
 }))
+
+const { sendEmail } = await import('../utils/smtp.js')
 
 const managerId = new Types.ObjectId()
 const modelId = new Types.ObjectId()
@@ -126,7 +125,7 @@ describe('test approval service', () => {
 
   test('that we can create a deployment approval object', async () => {
     ;(getUserById as unknown as jest.Mock).mockReturnValue(testUser)
-    ;(sendEmail as unknown as jest.Mock).mockImplementation()
+    ;(sendEmail as unknown as jest.Mock).mockImplementation(() => {})
     const approval = await createDeploymentApprovals({ deployment, user: testUser })
     expect(approval).not.toBe(undefined)
     expect(approval.approvalType).toBe('Manager')
@@ -135,7 +134,7 @@ describe('test approval service', () => {
 
   test('that we can create a version approval object', async () => {
     ;(getUserById as unknown as jest.Mock).mockReturnValue(testUser)
-    ;(sendEmail as unknown as jest.Mock).mockImplementation()
+    ;(sendEmail as unknown as jest.Mock).mockImplementation(() => {})
     const approvals = await createVersionApprovals({ version, user: testUser })
     expect(approvals).not.toBe(undefined)
     expect(approvals.length).toBe(2)

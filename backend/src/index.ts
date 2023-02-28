@@ -88,7 +88,7 @@ server.get('/api/v1/schema/default', ...getDefaultSchema)
 server.get('/api/v1/schema/:ref', ...getSchema)
 server.post('/api/v1/schema', ...postSchema)
 
-server.get('/api/v1/config', ...getUiConfig)
+server.get('/api/v1/config/ui', ...getUiConfig)
 
 server.get('/api/v1/users', ...getUsers)
 server.get('/api/v1/user', ...getLoggedInUser)
