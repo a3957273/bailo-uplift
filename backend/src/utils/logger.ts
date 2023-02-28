@@ -307,7 +307,9 @@ export async function expressErrorHandler(
   res: Response,
   _next: NextFunction
 ) {
+  console.log('HEREREREIOFWJEIOFJEWIOFJWEO')
   if (!err.code) {
+    console.log('no error code found')
     throw err
   }
 

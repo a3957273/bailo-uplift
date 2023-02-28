@@ -28,7 +28,7 @@ module.exports = {
   },
 
   mongo: {
-    uri: 'mongodb://mongo:27017/bailo',
+    uri: 'mongodb://localhost:27017/bailo',
   },
 
   minio: {

@@ -70,6 +70,8 @@ export async function getUser(req: Request, _res: Response, next: NextFunction) 
   const user = process.env.NODE_ENV !== 'test' ? await findUserCached(userInfo) : await findAndUpdateUser(userInfo)
   req.user = user
 
+  console.log('user', req.user)
+
   return next()
 }
 
