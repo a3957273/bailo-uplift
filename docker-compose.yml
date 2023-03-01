@@ -3,7 +3,7 @@ services:
   mongo:
     image: mongo:6.0.4
     ports:
-      - '27017'
+      - '27017:27017'
     volumes:
       - mongoVolume:/data/db
     command: --quiet
@@ -11,8 +11,8 @@ services:
   minio:
     image: minio/minio:RELEASE.2023-01-31T02-24-19Z
     ports:
-      - '9000'
-      - '9001'
+      - '9000:9000'
+      - '9001:9001'
     volumes:
       - minioVolume:/data
     command: server /data --console-address ":9001"

@@ -13,8 +13,8 @@ export async function connectToMongoose() {
   }
 
   try {
+    mongoose.set('strictQuery', false)
     await mongoose.connect(config.mongo.uri)
-
     logger.info('Connected to Mongoose')
   } catch (error) {
     logger.error({ error }, 'Error')

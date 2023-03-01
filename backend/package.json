@@ -10,7 +10,8 @@
     "build": "tsc",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "lint": "eslint . --ext .ts",
-    "style": "prettier --write ."
+    "style": "prettier --write .",
+    "script": "ts-node src/scripts/runScript.ts"
   },
   "keywords": [],
   "author": "",
