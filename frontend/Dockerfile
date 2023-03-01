@@ -48,6 +48,8 @@ COPY --from=installer --chown=nextjs:nodejs /app/frontend/.next/standalone/app .
 COPY --from=installer --chown=nextjs:nodejs /app/frontend/.next/static ./frontend/.next/static
 COPY --from=installer --chown=nextjs:nodejs /app/frontend/public ./frontend/public
 
+ENV NEXT_TELEMETRY_DISABLED 1
+
 EXPOSE 3000
 ENV PORT 3000
 

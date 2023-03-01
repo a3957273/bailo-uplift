@@ -45,6 +45,9 @@ services:
     depends_on:
       - mongo
       - minio
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
     environment:
       - NODE_CONFIG_ENV=docker_compose
 

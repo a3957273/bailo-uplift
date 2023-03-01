@@ -30,7 +30,7 @@ COPY turbo.json turbo.json
 RUN npx turbo run build --filter=@bailo/backend...
 
 FROM node:16-alpine as runner
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat img docker
 RUN apk update
 WORKDIR /app
 
