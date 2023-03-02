@@ -7,7 +7,7 @@ import '../../utils/mockMongo.js'
 import { testUser, testManager, testReviewer, testVersion, testModel } from '../../utils/test/testModels.js'
 
 const approval = await import('../../services/approval.js')
-jest.unstable_mockModule('../../services/approval.js', async () => {
+jest.unstable_mockModule('../../services/approval.js', () => {
   return {
     ...approval,
     createVersionApprovals: jest.fn(),

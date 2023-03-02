@@ -309,6 +309,7 @@ export async function expressErrorHandler(
 ) {
   if (!err.code) {
     console.log('no error code found')
+    console.log('error', err)
     throw err
   }
 

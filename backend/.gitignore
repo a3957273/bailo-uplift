@@ -130,3 +130,6 @@ dist
 .pnp.*
 
 .turbo
+
+certs/cert.pem
+certs/key.pem

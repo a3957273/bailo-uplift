@@ -4,6 +4,8 @@ import mongoose from 'mongoose'
 let mongod: MongoMemoryServer
 beforeAll(async () => {
   mongod = await MongoMemoryServer.create()
+  mongoose.set('strictQuery', false)
+  mongoose.set('strictPopulate', false)
   await mongoose.connect(mongod.getUri())
 })
 

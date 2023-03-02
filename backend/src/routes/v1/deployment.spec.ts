@@ -1,14 +1,12 @@
 import { ObjectId } from 'mongodb'
+import { jest } from '@jest/globals'
 import mongoose from 'mongoose'
 import DeploymentModel from '../../models/Deployment.js'
 import ModelModel from '../../models/Model.js'
 import SchemaModel from '../../models/Schema.js'
 import UserModel from '../../models/User.js'
 import VersionModel from '../../models/Version.js'
-import { findDeployments } from '../../services/deployment.js'
-import { createDeploymentApprovals } from '../../services/approval.js'
-import { findVersionByName } from '../../services/version.js'
-import '../../utils/mockMongo'
+import '../../utils/mockMongo.js'
 import {
   deploymentSchema,
   deploymentUuid,
@@ -20,36 +18,50 @@ import {
   testVersion,
   deploymentData,
 } from '../../utils/test/testModels.js'
-import { authenticatedGetRequest, authenticatedPostRequest, validateTestRequest } from '../../utils/test/testUtils.js'
-import { validateSchema } from '../../utils/validateSchema.js'
 
-jest.mock('../../services/approval.js', () => {
-  const original = jest.requireActual('../../services/approval.js')
+const approval = await import('../../services/approval.js')
+jest.unstable_mockModule('../../services/approval.js', () => {
   return {
-    ...original,
+    ...approval,
     createDeploymentApprovals: jest.fn(),
   }
 })
 
-jest.mock('../../services/deployment.js', () => {
-  const original = jest.requireActual('../../services/deployment.js')
+const { createDeploymentApprovals } = await import('../../services/approval.js')
+
+const deployment = await import('../../services/deployment.js')
+jest.unstable_mockModule('../../services/deployment.js', () => {
   return {
-    ...original,
+    ...deployment,
     findDeployments: jest.fn(),
   }
 })
 
-jest.mock('../../services/version.js', () => {
-  const original = jest.requireActual('../../services/version.js')
+const { findDeployments } = await import('../../services/deployment.js')
+
+const version = await import('../../services/version.js')
+jest.unstable_mockModule('../../services/version.js', () => {
   return {
-    ...original,
+    ...version,
     findVersionByName: jest.fn(),
   }
 })
 
-jest.mock('../../utils/validateSchema.js', () => ({
-  validateSchema: jest.fn(),
-}))
+const { findVersionByName } = await import('../../services/version.js')
+
+const validateSchemaModule = await import('../../utils/validateSchema.js')
+jest.unstable_mockModule('../../utils/validateSchema.js', () => {
+  return {
+    ...validateSchemaModule,
+    validateSchema: jest.fn(),
+  }
+})
+
+const { validateSchema } = await import('../../utils/validateSchema.js')
+
+const { authenticatedGetRequest, authenticatedPostRequest, validateTestRequest } = await import(
+  '../../utils/test/testUtils.js'
+)
 
 let deploymentDoc: any
 let versionDoc: any
@@ -83,7 +95,7 @@ describe('test deployment routes', () => {
 
   test('reset approvals for deployment with a given uuid', async () => {
     ;(findVersionByName as unknown as jest.Mock).mockReturnValueOnce(versionDoc)
-    ;(createDeploymentApprovals as unknown as jest.Mock).mockImplementation()
+    ;(createDeploymentApprovals as unknown as jest.Mock).mockReturnValueOnce(undefined)
     const res = await authenticatedPostRequest(`/api/v1/deployment/${deploymentUuid}/reset-approvals`)
     validateTestRequest(res)
     expect(res.body.uuid).toBe(deploymentUuid)
