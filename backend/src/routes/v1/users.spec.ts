@@ -1,21 +1,23 @@
+import { jest } from '@jest/globals'
 import { ObjectId } from 'mongodb'
 import mongoose, { Types } from 'mongoose'
 import supertest from 'supertest'
 import { v4 as uuidv4 } from 'uuid'
-import { server } from '../../index.js'
+import { server } from '../../routes.js'
 import ModelModel from '../../models/Model.js'
 import UserModel from '../../models/User.js'
-import { getUserByInternalId, findAndUpdateUser } from '../../services/user.js'
 import '../../utils/mockMongo'
-import { authenticatedGetRequest, authenticatedPostRequest, validateTestRequest } from '../../utils/test/testUtils.js'
 
-jest.mock('../../services/user.js', () => {
-  const original = jest.requireActual('../../services/user.js')
-  return {
-    ...original,
-    getUserByInternalId: jest.fn(),
-  }
-})
+const user = await import('../../services/user.js')
+jest.unstable_mockModule('../../services/user.js', () => ({
+  ...user,
+  getUserByInternalId: jest.fn(),
+}))
+
+const { authenticatedGetRequest, authenticatedPostRequest, validateTestRequest } = await import(
+  '../../utils/test/testUtils.js'
+)
+const { getUserByInternalId, findAndUpdateUser } = await import('../../services/user.js')
 
 const request = supertest(server)
 
