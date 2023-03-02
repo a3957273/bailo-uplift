@@ -8,10 +8,11 @@
     "start": "ts-node src/index.ts",
     "dev": "nodemon",
     "build": "tsc",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+    "test": "cross-env NODE_OPTIONS=\"--experimental-vm-modules\" jest",
     "lint": "eslint . --ext .ts",
     "style": "prettier --write .",
-    "script": "ts-node src/scripts/runScript.ts"
+    "script": "ts-node src/scripts/runScript.ts",
+    "certs": "mkdir -p certs && openssl genrsa -out certs/key.pem 2048 && openssl req -new -x509 -key certs/key.pem -out certs/cert.pem -config certs/san.cnf -extensions 'v3_req' -days 360"
   },
   "keywords": [],
   "author": "",
@@ -96,7 +97,9 @@
     "@typescript-eslint/parser": "^5.50.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.33.0",
+    "esmock": "^2.1.0",
     "jest": "^29.4.1",
+    "jest-light-runner": "^0.4.1",
     "mongodb-memory-server": "^8.11.5",
     "nodemon": "^2.0.20",
     "prettier": "2.8.3",

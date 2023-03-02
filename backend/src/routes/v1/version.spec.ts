@@ -1,24 +1,21 @@
 import mongoose from 'mongoose'
+import { jest } from '@jest/globals'
 import ModelModel from '../../models/Model.js'
 import UserModel from '../../models/User.js'
 import VersionModel from '../../models/Version.js'
-import { createVersionApprovals } from '../../services/approval.js'
-import '../../utils/mockMongo'
+import '../../utils/mockMongo.js'
 import { testUser, testManager, testReviewer, testVersion, testModel } from '../../utils/test/testModels.js'
-import {
-  authenticatedGetRequest,
-  authenticatedPostRequest,
-  authenticatedPutRequest,
-  validateTestRequest,
-} from '../../utils/test/testUtils.js'
 
-jest.mock('../../services/approval.js', () => {
-  const original = jest.requireActual('../../services/approval.js')
+const approval = await import('../../services/approval.js')
+jest.unstable_mockModule('../../services/approval.js', async () => {
   return {
-    ...original,
+    ...approval,
     createVersionApprovals: jest.fn(),
   }
 })
+
+const { authenticatedGetRequest, authenticatedPostRequest, authenticatedPutRequest, validateTestRequest } =
+  await import('../../utils/test/testUtils.js')
 
 describe('test version routes', () => {
   beforeEach(async () => {
@@ -38,7 +35,6 @@ describe('test version routes', () => {
   })
 
   test('that we can edit a version', async () => {
-    ;(createVersionApprovals as unknown as jest.Mock).mockImplementation()
     const editedVersion = testVersion
     editedVersion.metadata.highLevelDetails.name = 'test2'
     const res = await authenticatedPutRequest(`/api/v1/version/${testVersion._id}`).send(editedVersion.metadata)
@@ -47,7 +43,6 @@ describe('test version routes', () => {
   })
 
   test('that we can reset approvals for a version', async () => {
-    ;(createVersionApprovals as unknown as jest.Mock).mockImplementation()
     const res = await authenticatedPostRequest(`/api/v1/version/${testVersion._id}/reset-approvals`)
     validateTestRequest(res)
     expect(res.body.managerApproved).toBe('No Response')

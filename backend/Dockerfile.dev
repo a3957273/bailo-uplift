@@ -9,7 +9,7 @@ COPY . .
 RUN turbo prune --scope=@bailo/backend --docker
 
 FROM node:16-alpine as runner
-RUN apk add --no-cache libc6-compat img docker shadow
+RUN apk add --no-cache libc6-compat img docker shadow ca-certificates
 RUN apk update
 WORKDIR /app
 

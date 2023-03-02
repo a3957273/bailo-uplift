@@ -96,7 +96,7 @@ class Writer extends WritableStream {
 
   write(data: { level: number; src: any; msg: any }) {
     const level = Writer.getLevel(data.level)
-    const src = this.getSrc(data.src)
+    const src = data.src ? this.getSrc(data.src) : undefined
     const attributes = Writer.getAttributes(data)
     const formattedAttributes = attributes.length ? ` (${attributes})` : ''
 

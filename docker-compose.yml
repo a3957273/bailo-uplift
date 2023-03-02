@@ -17,19 +17,49 @@ services:
       - minioVolume:/data
     command: server /data --console-address ":9001"
 
-  # frontend:
-  #   build:
-  #     context: ./
-  #     dockerfile: ./frontend/Dockerfile.dev
-  #   volumes:
-  #     - ./:/app
-  #     - /app/node_modules
-  #     - /app/frontend/node_modules
-  #     - /app/backend/node_modules
-  #   depends_on:
-  #     - backend
-  #   ports:
-  #     - 3000:3000
+  maildev:
+    image: maildev/maildev:2.0.5
+    ports:
+      - '1080:1080'
+      - '1025:1025'
+    environment:
+      MAILDEV_INCOMING_USER: mailuser
+      MAILDEV_INCOMING_PASS: mailpass
+
+  registry:
+    restart: always
+    image: registry:2.8.1
+    ports:
+      - 5000:5000
+    environment:
+      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/cert.pem
+      REGISTRY_HTTP_TLS_KEY: /certs/key.pem
+
+      REGISTRY_STORAGE_S3_ACCESSKEY: minioadmin
+      REGISTRY_STORAGE_S3_SECRETKEY: minioadmin
+
+      REGISTRY_AUTH: token
+      REGISTRY_AUTH_TOKEN_REALM: http://backend:3001/api/v1/registry_auth
+      REGISTRY_AUTH_TOKEN_SERVICE: RegistryAuth
+      REGISTRY_AUTH_TOKEN_ISSUER: RegistryIssuer
+      REGISTRY_AUTH_TOKEN_ROOTCERTBUNDLE: /certs/cert.pem
+    volumes:
+      - ./backend/config/registry.conf:/etc/docker/registry/config.yml
+      - ./certs:/certs
+
+  frontend:
+    build:
+      context: ./
+      dockerfile: ./frontend/Dockerfile.dev
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/frontend/node_modules
+      - /app/backend/node_modules
+    depends_on:
+      - backend
+    ports:
+      - 3000:3000
 
   backend:
     build:
