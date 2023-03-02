@@ -1,6 +1,6 @@
 import { describe, expect, test, jest } from '@jest/globals'
 import config from '../src/utils/config.js'
-import { add } from '../src/utils/example.js'
+import { add } from '../src/utils/number.js'
 
 const example = { add }
 

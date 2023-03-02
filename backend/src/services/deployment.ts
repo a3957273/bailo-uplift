@@ -9,7 +9,7 @@ import Authorisation from '../external/Authorisation.js'
 import { asyncFilter } from '../utils/general.js'
 import { SerializerOptions } from '../utils/serializers.js'
 import { Forbidden } from '../utils/result.js'
-import { getUserById, getUserByInternalId } from './user.js'
+import { getUserByInternalId } from './user.js'
 import { getEntitiesForUser } from '../utils/entity.js'
 import config from '../utils/config.js'
 
