@@ -24,7 +24,7 @@ export async function ensureBucketExists(bucket: string) {
   }
   if (!exists) {
     logger.info({ bucket }, 'Bucket does not exist, creating.')
-    await client.makeBucket(bucket, (config.minio as any).region)
+    await client.makeBucket(bucket, config.minio.connection.region)
   }
 }
 

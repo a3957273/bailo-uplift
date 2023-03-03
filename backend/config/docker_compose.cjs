@@ -21,8 +21,8 @@ module.exports = {
 
   registry: {
     connection: {
-      host: 'registry:8080',
-      port: 8080,
+      host: 'registry:5000',
+      port: 5000,
       protocol: 'https',
     },
   },

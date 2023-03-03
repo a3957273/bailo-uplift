@@ -45,7 +45,7 @@ services:
       REGISTRY_AUTH_TOKEN_ROOTCERTBUNDLE: /certs/cert.pem
     volumes:
       - ./backend/config/registry.conf:/etc/docker/registry/config.yml
-      - ./certs:/certs
+      - ./backend/certs:/certs
 
   frontend:
     build:
@@ -67,6 +67,7 @@ services:
       dockerfile: ./backend/Dockerfile.dev
     volumes:
       - ./:/app
+      - ./backend/certs:/usr/local/share/ca-certificates/
       - /app/node_modules
       - /app/frontend/node_modules
       - /app/backend/node_modules

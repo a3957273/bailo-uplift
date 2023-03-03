@@ -38,7 +38,7 @@ module.exports = {
       useSSL: false,
       accessKey: 'minioadmin',
       secretKey: 'minioadmin',
-      region: '',
+      region: 'minio',
     },
 
     automaticallyCreateBuckets: true,
@@ -51,8 +51,8 @@ module.exports = {
 
   registry: {
     connection: {
-      host: 'localhost:8080',
-      port: 8080,
+      host: 'localhost:5000',
+      port: 5000,
       protocol: 'https',
     },
 
