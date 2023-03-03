@@ -2,13 +2,14 @@ import config from './utils/config.js'
 import './utils/signals.js'
 import { registerSigTerminate } from './utils/signals.js'
 import { ensureBucketExists } from './utils/minio.js'
-import { createIndexes } from './models/Model.js'
+import { createModelIndexes } from './models/Model.js'
 import processUploads from './processors/processUploads.js'
 import processDeployments from './processors/processDeployments.js'
 import { server } from './routes.js'
 
 import { runMigrations, connectToMongoose } from './utils/database.js'
 import shelljs from 'shelljs'
+import { createSchemaIndexes } from './models/Schema.js'
 
 // Update certificates based on mount
 shelljs.exec('update-ca-certificates', { fatal: false, async: false })
@@ -26,7 +27,8 @@ await connectToMongoose()
 await runMigrations()
 
 // lazily create indexes for full text search
-createIndexes()
+createModelIndexes()
+createSchemaIndexes()
 
 await Promise.all([processUploads(), processDeployments()])
 

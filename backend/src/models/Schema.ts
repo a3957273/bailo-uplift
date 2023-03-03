@@ -34,6 +34,9 @@ const SchemaSchema = new MongooseSchema<Schema>(
 )
 
 const SchemaModel = model<Schema>('Schema', SchemaSchema)
-SchemaModel.createIndexes()
+
+export async function createSchemaIndexes() {
+  await SchemaModel.createIndexes()
+}
 
 export default SchemaModel

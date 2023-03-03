@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb'
 import DeploymentModel from '../models/Deployment.js'
 import UserModel from '../models/User.js'
-import '../utils/mockMongo'
+import '../utils/mockMongo.js'
 import { deploymentUuid, testDeployment, testDeployment2, testUser } from '../utils/test/testModels.js'
 import {
   createDeployment,

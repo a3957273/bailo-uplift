@@ -32,7 +32,7 @@ ModelSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, de
 
 const ModelModel = model<Model>('Model', ModelSchema)
 
-export async function createIndexes() {
+export async function createModelIndexes() {
   ModelSchema.index({ '$**': 'text' })
   await ModelModel.createIndexes()
 }
