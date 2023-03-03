@@ -30,7 +30,7 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
-  transpilePackages: ['@bailo/shared', 'nanoid', 'lodash-es'],
+  transpilePackages: ['@bailo/shared', 'nanoid', 'lodash-es', '@uiw/react-textarea-code-editor'],
 
   modularizeImports: {
     '@mui/material': {
