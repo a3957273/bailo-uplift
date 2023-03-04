@@ -3,13 +3,10 @@ import { AppProps } from 'next/app'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { CacheProvider, EmotionCache } from '@emotion/react'
-import { lightTheme } from '../styles/theme'
 
 import createEmotionCache from '../components/createEmotionCache'
 
-import useDocsMenu from '../utils/hooks/useDocsMenu'
 import useThemeMode from '../utils/hooks/useThemeMode'
-import DocsMenuContext from '../src/contexts/docsMenuContext'
 import ThemeModeContext from '../src/contexts/themeModeContext'
 
 import { SnackbarProvider } from 'notistack'
@@ -32,7 +29,6 @@ export default function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
   const themeModeValue = useThemeMode()
-  const docsMenuValue = useDocsMenu()
 
   return (
     <CacheProvider value={emotionCache}>
@@ -42,10 +38,8 @@ export default function MyApp(props: MyAppProps) {
       <ThemeProvider theme={themeModeValue.theme}>
         <ThemeModeContext.Provider value={themeModeValue}>
           <SnackbarProvider>
-            <DocsMenuContext.Provider value={docsMenuValue}>
-              <CssBaseline />
-              <Component {...pageProps} />
-            </DocsMenuContext.Provider>
+            <CssBaseline />
+            <Component {...pageProps} />
           </SnackbarProvider>
         </ThemeModeContext.Provider>
       </ThemeProvider>
