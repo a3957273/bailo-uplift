@@ -1,1 +1,4 @@
 node_modules
+
+infrastructure/helm/bailo/charts
+infrastructure/helm/bailo/local.yaml

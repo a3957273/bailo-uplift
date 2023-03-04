@@ -50,12 +50,18 @@ const nextConfig = {
     ]
   },
 
+  compiler: {
+    emotion: true,
+  },
+  swcMinify: true,
+
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   eslint: {
     dirs: ['__tests__', 'cypress', 'data', 'lib', 'pages', 'server', 'src', 'types', 'utils'],
   },
 
   experimental: {
+    swcTraceProfiling: true,
     outputFileTracingRoot: path.join(fileURLToPath(new URL('.', import.meta.url)), '../../'),
   },
 }
