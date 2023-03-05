@@ -28,15 +28,15 @@ module.exports = {
   },
 
   smtp: {
-    enabled: false,
+    enabled: true,
 
     connection: {
-      host: 'maildev',
+      host: 'mailcrab',
       port: 1025,
       secure: false,
       auth: {
-        user: 'mailuser',
-        pass: 'mailpass',
+        user: '',
+        pass: '',
       },
       tls: {
         rejectUnauthorized: false,

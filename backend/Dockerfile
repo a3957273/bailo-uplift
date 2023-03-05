@@ -6,6 +6,11 @@ RUN apk add --no-cache libc6-compat
 RUN apk update
 WORKDIR /app
 
+RUN mkdir /s2i && \
+    wget -O s2i.tar.gz https://github.com/openshift/source-to-image/releases/download/v1.3.1/source-to-image-v1.3.1-a5a77147-linux-amd64.tar.gz && \
+    tar -xvf s2i.tar.gz -C /s2i && \
+    rm -rf s2i.tar.gz
+
 # Install Turbo
 RUN npm install --global turbo
 COPY . .

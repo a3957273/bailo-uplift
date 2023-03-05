@@ -70,8 +70,8 @@ module.exports = {
       port: 1025,
       secure: false,
       auth: {
-        user: 'mailuser',
-        pass: 'mailpass',
+        user: '',
+        pass: '',
       },
       tls: {
         rejectUnauthorized: false,

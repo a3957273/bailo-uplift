@@ -17,14 +17,11 @@ services:
       - minioVolume:/data
     command: server /data --console-address ":9001"
 
-  maildev:
-    image: maildev/maildev:2.0.5
+  mailcrab:
+    image: marlonb/mailcrab:latest
     ports:
       - '1080:1080'
       - '1025:1025'
-    environment:
-      MAILDEV_INCOMING_USER: mailuser
-      MAILDEV_INCOMING_PASS: mailpass
 
   registry:
     restart: always

@@ -96,7 +96,7 @@ docker-compose up --force-recreate --build -d
 ```
 
 On first run, it may take a while (up to 30 seconds) to start up. It needs to build several hundred TypeScript
-modules. These are cached however, so future starts only require a few seconds. You should access the site via [localhost:3000](http://localhost:3000)..
+modules. These are cached however, so future starts only require a few seconds. You should access the site via [localhost:3000](http://localhost:3000).
 
 <br />
 
