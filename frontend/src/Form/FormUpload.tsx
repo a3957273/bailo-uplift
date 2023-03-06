@@ -73,7 +73,9 @@ export default function FormUpload({
         onChange={handleMetadataChange}
         error={validationErrorText !== ''}
         helperText={validationErrorText}
-        data-test='metadataTextarea'
+        inputProps={{
+          'data-test': 'metadataTextarea',
+        }}
       />
       {uiConfig?.uploadWarning?.showWarning && (
         <Alert sx={{ width: '100%', mt: 3 }} severity={warningCheckboxVal ? 'success' : 'warning'}>

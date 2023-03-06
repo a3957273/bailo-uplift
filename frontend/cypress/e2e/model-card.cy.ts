@@ -13,11 +13,13 @@ describe('Model with model card only', () => {
     cy.fixture('schema_names.json').then((schemaNames) => {
       cy.get(`[role=option]:contains(${schemaNames.model})`).click()
     })
+    cy.get('body').type('{esc}')
 
     cy.fixture('minimal_metadata.json').then((modelMetadata) => {
       const updatedMetadata = { ...modelMetadata }
       updatedMetadata.buildOptions.uploadType = 'Model card only'
       cy.get('[data-test=metadataTextarea]')
+        .click()
         .clear()
         .type(JSON.stringify(updatedMetadata), { parseSpecialCharSequences: false, delay: 0 })
 
