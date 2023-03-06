@@ -110,9 +110,7 @@ export default function FilterMenu({ currentFilters, onGetLogs }: FilterMenuProp
           <Divider sx={{ mt: 1, mb: 2 }} />
           <Box sx={{ mx: 1 }}>
             <LogLevelSelect value={level} onChange={handleLogLevelChange} />
-            <Tooltip
-              title={approvalId ? 'Unable to provide a Build ID, an Approval ID has already been provided.' : ''}
-            >
+            <Tooltip title={approvalId ? 'Unable to provide a Build ID, an Approval ID has already been provided' : ''}>
               <TextField
                 label='Build ID'
                 value={buildId}
@@ -122,7 +120,7 @@ export default function FilterMenu({ currentFilters, onGetLogs }: FilterMenuProp
                 sx={{ minWidth: '300px', mb: 1 }}
               />
             </Tooltip>
-            <Tooltip title={buildId ? 'Unable to provide an Approval ID, a Build ID has already been provided.' : ''}>
+            <Tooltip title={buildId ? 'Unable to provide an Approval ID, a Build ID has already been provided' : ''}>
               <TextField
                 label='Approval ID'
                 value={approvalId}

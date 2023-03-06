@@ -365,9 +365,9 @@ function Model() {
               <MenuList>
                 <DisabledElementTooltip
                   conditions={[
-                    !version.built ? 'Version needs to build.' : '',
-                    version.managerApproved !== 'Accepted' ? 'Waiting on manager approval.' : '',
-                    version.reviewerApproved !== 'Accepted' ? 'Waiting on technical reviewer approval.' : '',
+                    !version.built ? 'Waiting on Version build' : '',
+                    version.managerApproved !== 'Accepted' ? 'Waiting on manager approval' : '',
+                    version.reviewerApproved !== 'Accepted' ? 'Waiting on technical reviewer approval' : '',
                   ]}
                 >
                   <MenuItem
@@ -385,7 +385,7 @@ function Model() {
                     <ListItemText>Request deployment</ListItemText>
                   </MenuItem>
                 </DisabledElementTooltip>
-                <DisabledElementTooltip conditions={[!version.built ? 'Version needs to build.' : '']}>
+                <DisabledElementTooltip conditions={[!version.built ? 'Waiting on Version build' : '']}>
                   <MenuItem
                     onClick={() => setUngovernedDialogOpen(true)}
                     disabled={!version.built}
@@ -429,9 +429,9 @@ function Model() {
                 <DisabledElementTooltip
                   conditions={[
                     version.managerApproved === 'Accepted' && version.reviewerApproved === 'Accepted'
-                      ? 'Version has already been approved by both a manager and a technical reviewer.'
+                      ? 'Version has already been approved by both a manager and a technical reviewer'
                       : '',
-                    !isPotentialUploader ? 'You do not have permission to edit this model.' : '',
+                    !isPotentialUploader ? 'You do not have permission to edit this model' : '',
                   ]}
                 >
                   <MenuItem
@@ -537,7 +537,7 @@ function Model() {
           <>
             <Grid container justifyContent='flex-end' sx={{ pb: 2 }}>
               <DisabledElementTooltip
-                conditions={[version.state?.build?.state === 'retrying' ? 'Model is already retrying.' : '']}
+                conditions={[version.state?.build?.state === 'retrying' ? 'Model is already retrying' : '']}
               >
                 <Button
                   disabled={version.state?.build?.state === 'retrying'}
@@ -616,7 +616,7 @@ function Model() {
             </Typography>
             <Stack direction='row' spacing={2}>
               <DisabledElementTooltip
-                conditions={[!isPotentialUploader ? 'You do not have permission to delete this version.' : '']}
+                conditions={[!isPotentialUploader ? 'You do not have permission to delete this version' : '']}
                 placement='bottom'
               >
                 <Button
