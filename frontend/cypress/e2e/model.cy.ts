@@ -25,6 +25,7 @@ describe('Model with code and binary files', () => {
     cy.get('[data-test=selectSchemaInput]').trigger('mousedown', { force: true, button: 0 })
     cy.fixture('schema_names.json').then((schemaNames) => {
       cy.get(`[role=option]:contains(${schemaNames.model})`).click()
+      cy.get('body').type('{esc}')
     })
 
     cy.log('Selecting code and binary files')

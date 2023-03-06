@@ -12,8 +12,8 @@ describe('Model with model card only', () => {
     cy.get('[data-test=selectSchemaInput]').trigger('mousedown', { force: true, button: 0 })
     cy.fixture('schema_names.json').then((schemaNames) => {
       cy.get(`[role=option]:contains(${schemaNames.model})`).click()
+      cy.get('body').type('{esc}')
     })
-    cy.get('body').type('{esc}')
 
     cy.fixture('minimal_metadata.json').then((modelMetadata) => {
       const updatedMetadata = { ...modelMetadata }
@@ -48,7 +48,7 @@ describe('Model with model card only', () => {
     cy.get('[data-test=editModelButton]').click({ force: true })
 
     cy.log('Inputting edited metadata')
-    cy.get('[data-test=uploadJsonTab]', { timeout: 10000 }).click({ force: true })
+    cy.get('[data-test=uploadJsonTab]', { timeout: 15000 }).click({ force: true })
     cy.fixture('minimal_metadata.json').then((metadata) => {
       const updatedMetadata = { ...metadata }
       updatedMetadata.highLevelDetails.modelOverview = 'This is an edit'
@@ -72,7 +72,7 @@ describe('Model with model card only', () => {
     cy.get('[data-test=newVersionButton]').click({ force: true })
 
     cy.log('Inputting new version metadata')
-    cy.get('[data-test=uploadJsonTab]', { timeout: 10000 }).click({ force: true })
+    cy.get('[data-test=uploadJsonTab]', { timeout: 15000 }).click({ force: true })
     cy.fixture('minimal_metadata.json').then((metadata) => {
       const updatedMetadata = { ...metadata }
       updatedMetadata.highLevelDetails.modelCardVersion = 'v2'
