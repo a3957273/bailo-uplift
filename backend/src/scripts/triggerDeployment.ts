@@ -1,4 +1,3 @@
-/* eslint-disable import/newline-after-import */
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import DeploymentModel from '../models/Deployment.js'
