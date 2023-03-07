@@ -23,6 +23,17 @@ services:
       - '1080:1080'
       - '1025:1025'
 
+  nginx:
+    image: nginx:1.21.6-alpine
+    volumes:
+      - ./infrastructure/nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 8080:8080
+    depends_on:
+      - frontend
+      - backend
+      - registry
+
   registry:
     restart: always
     image: registry:2.8.1
