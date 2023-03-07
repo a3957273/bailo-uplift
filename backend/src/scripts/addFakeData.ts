@@ -1,6 +1,5 @@
-/* eslint-disable import/newline-after-import */
 import { findAndUpdateUser } from '../services/user.js'
-import { connectToMongoose, disconnectFromMongoose } from '../utils/database.js'
+import { connectToMongoose, disconnectFromMongoose } from '../utils/database.js' assert { type: 'json' }
 ;(async () => {
   await connectToMongoose()
 

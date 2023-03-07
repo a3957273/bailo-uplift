@@ -250,7 +250,7 @@ export default function Deployment() {
               <DisabledElementTooltip
                 conditions={[
                   deployment?.managerApproved === 'No Response'
-                    ? 'Deployment needs to have been responded to before it can have its approvals reset.'
+                    ? 'Deployment needs to have been responded to before it can have its approvals reset'
                     : '',
                 ]}
               >
@@ -277,7 +277,7 @@ export default function Deployment() {
                   <DisabledElementTooltip
                     conditions={[
                       deployment.managerApproved !== 'Accepted'
-                        ? 'Deployment needs to be approved before you can view the exported model list.'
+                        ? 'Deployment needs to be approved before you can view the exported model list'
                         : '',
                     ]}
                     placement='top'

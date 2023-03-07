@@ -3,6 +3,8 @@
   "scripts": {
     "build": "turbo run build",
     "clean": "turbo run clean",
+    "cy:open": "npm --prefix ./frontend/ run cy:open",
+    "cy:run": "npm --prefix ./frontend/ run cy:run",
     "dev": "turbo run dev",
     "style": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
