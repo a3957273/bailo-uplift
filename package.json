@@ -3,13 +3,17 @@
   "scripts": {
     "build": "turbo run build",
     "clean": "turbo run clean",
+    "cy:open": "npm --prefix ./frontend/ run cy:open",
+    "cy:run": "npm --prefix ./frontend/ run cy:run",
     "dev": "turbo run dev",
-    "style": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "style": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-style": "prettier --check \"**/*.{ts,tsx,md}\""
   },
   "workspaces": [
-    "shared",
+    "lib/shared",
+    "lib/node",
     "frontend",
     "backend"
   ],

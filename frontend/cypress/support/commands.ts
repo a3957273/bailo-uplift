@@ -36,4 +36,4 @@
 //   }
 // }
 
-export default undefined
+export {}
