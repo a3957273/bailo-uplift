@@ -247,7 +247,7 @@ export default function Wrapper({ title, page, children }: WrapperProps): ReactE
                 </Menu>
               </>
             ) : (
-              <Typography variant='caption'>'Loading...'</Typography>
+              <Typography variant='caption'>Loading...</Typography>
             )}
           </Toolbar>
         </AppBar>

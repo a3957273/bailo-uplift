@@ -165,7 +165,6 @@ export default function SchemaDesigner() {
     const reference = schemaReference === '' ? _.camelCase(schemaName) : _.camelCase(schemaReference)
     if (schema) {
       // todo - implemented schema submission
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const userSchema = { ...schema, name: schemaName, reference, use: schemaUse }
     }
   }
