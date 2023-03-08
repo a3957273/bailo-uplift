@@ -49,8 +49,8 @@ jobs:
           cache: 'npm'
 
       # Create certs
-      - run: sudo chown -R runner:docker certs
-      - run: npm run certs
+      - run: sudo chown -R runner:docker backend/certs
+      - run: npm run --workspace=backend certs
 
       # Install dependencies
       - run: npm ci
