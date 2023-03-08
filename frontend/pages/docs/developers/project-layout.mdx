@@ -48,24 +48,27 @@ import DocsWrapper from 'src/docs/DocsWrapper'
     <TreeItem nodeId='/scripts' label='scripts'>
       <TreeItem nodeId='/scripts/description' label='Various Bash scripts.' />
     </TreeItem>
-    <TreeItem nodeId='/server' label='server'>
-      <TreeItem nodeId='/server/models' label='models'>
-        <TreeItem nodeId='/server/models/description' label='Responsible for directly interacting with the database.' />
-      </TreeItem>
-      <TreeItem nodeId='/server/routes' label='routes'>
+    <TreeItem nodeId='/backend' label='backend'>
+      <TreeItem nodeId='/backend/src/models' label='models'>
         <TreeItem
-          nodeId='/server/routes/description'
+          nodeId='/backend/src/models/description'
+          label='Responsible for directly interacting with the database.'
+        />
+      </TreeItem>
+      <TreeItem nodeId='/backend/src/routes' label='routes'>
+        <TreeItem
+          nodeId='/backend/src/routes/description'
           label='Defines the HTTP API and handles initial request validation.'
         />
       </TreeItem>
-      <TreeItem nodeId='/server/services' label='services'>
+      <TreeItem nodeId='/backend/src/services' label='services'>
         <TreeItem
-          nodeId='/server/services/description'
+          nodeId='/backend/src/services/description'
           label='Single, defined tasks and business logic that sits between routes and models.'
         />
       </TreeItem>
-      <TreeItem nodeId='/server/utils' label='utils'>
-        <TreeItem nodeId='/server/utils/description' label='Server specific reusable utilities.' />
+      <TreeItem nodeId='/backend/src/utils' label='utils'>
+        <TreeItem nodeId='/backend/src/utils/description' label='Server specific reusable utilities.' />
       </TreeItem>
     </TreeItem>
     <TreeItem nodeId='/src' label='src'>
