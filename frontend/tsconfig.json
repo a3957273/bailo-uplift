@@ -15,7 +15,8 @@
     "jsx": "preserve",
     "jsxImportSource": "@emotion/react",
     "incremental": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "noImplicitAny": false
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

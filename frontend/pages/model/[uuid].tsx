@@ -52,7 +52,7 @@ import { getErrorMessage } from '../../utils/fetcher'
 import ApprovalsChip from '../../src/common/ApprovalsChip'
 import EmptyBlob from '../../src/common/EmptyBlob'
 import MultipleErrorWrapper from '../../src/errors/MultipleErrorWrapper'
-import { Deployment, User, Version, ModelUploadType, DateString } from '../../types/interfaces'
+import { Deployment, User, Version, ModelUploadType, DateString, Entity } from '../../types/interfaces'
 import DisabledElementTooltip from '../../src/common/DisabledElementTooltip'
 import ConfirmationDialogue from '../../src/common/ConfirmationDialogue'
 import useNotification from '../../src/common/Snackbar'
@@ -65,9 +65,11 @@ function isTabOption(value: string): value is TabOptions {
   return ['overview', 'compliance', 'build', 'deployments', 'code', 'settings'].includes(value)
 }
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>((props, ref) => (
-  <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
-))
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
+})
+
+Alert.displayName = 'Alert'
 
 function Model() {
   const router = useRouter()
@@ -572,7 +574,7 @@ function Model() {
                     <Typography variant='subtitle2' sx={{ mt: 'auto', mb: 'auto', mr: 1 }}>
                       Contacts:
                     </Typography>
-                    {deployment.metadata.contacts.owner.map((owner) => (
+                    {deployment.metadata.contacts.owner.map((owner: Entity) => (
                       <Chip
                         key={owner.id}
                         color='primary'

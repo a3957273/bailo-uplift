@@ -1,4 +1,3 @@
-import * as Minio from 'minio'
 import { Request, Response } from 'express'
 import bodyParser from 'body-parser'
 import { customAlphabet } from 'nanoid'
