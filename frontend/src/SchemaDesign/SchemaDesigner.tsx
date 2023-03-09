@@ -165,7 +165,7 @@ export default function SchemaDesigner() {
     const reference = schemaReference === '' ? _.camelCase(schemaName) : _.camelCase(schemaReference)
     if (schema) {
       // todo - implemented schema submission
-      const userSchema = { ...schema, name: schemaName, reference, use: schemaUse }
+      //const userSchema = { ...schema, name: schemaName, reference, use: schemaUse }
     }
   }
 

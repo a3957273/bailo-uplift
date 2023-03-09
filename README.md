@@ -92,6 +92,7 @@ To run in development mode (modified files on your host machine will be reloaded
 git clone https://github.com/gchq/Bailo.git && cd Bailo
 npm install
 npm run --workspace=backend certs
+npm run --workspace=backend script -- exampleSetAllSchemas
 docker-compose up --force-recreate --build -d
 ```
 
