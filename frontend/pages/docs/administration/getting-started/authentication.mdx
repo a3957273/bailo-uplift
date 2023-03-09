@@ -22,11 +22,11 @@ proxy_set_header X-User '{"some":"data"}';
 ```
 
 To support other authentication mechanisms, an administrator can override the `getUserFromReq` method to get this
-information from any other method. To do this edit `server/external/Authorisation.ts` to override the required methods
-from `server/utils/AuthorisationBase.ts`. E.g.
+information from any other method. To do this edit `backend/src/external/Authorisation.ts` to override the required
+methods from `backend/src/utils/AuthorisationBase.ts`. E.g.
 
 ```javascript
-// server/external/Authorisation.ts
+// backend/src/external/Authorisation.ts
 import AuthorisationBase from '../utils/AuthorisationBase.js'
 import { Request } from 'express'
 
@@ -58,16 +58,16 @@ is capable of editting a model that has been uploaded. All users can view all mo
 
 This is unlikely to be suitable for large organisations, who may wish to integrate their own internal authorisation
 system into Bailo. An administrator can integrate with their internal authorisation system by overriding one of the
-`canUserSeeX` functions, visible in `server/utils/AuthorisationBase.ts`. Each functino takes in a user object, as well
-as the object to view. The function is then expected to return either `true` or `false` depending on if the user can
-view that object.
+`canUserSeeX` functions, visible in `backend/src/utils/AuthorisationBase.ts`. Each functino takes in a user object, as
+well as the object to view. The function is then expected to return either `true` or `false` depending on if the user
+can view that object.
 
 This authorisation affects both users directly viewing a model, as well as the models visible in the marketplace.
 
 An example authorisation implemention:
 
 ```javascript
-// server/external/Authorisation.ts
+// backend/src/external/Authorisation.ts
 import AuthorisationBase from '../utils/AuthorisationBase.js'
 import { UserDoc } from '../models/User.js'
 import { VersionDoc } from '../models/Version.js'

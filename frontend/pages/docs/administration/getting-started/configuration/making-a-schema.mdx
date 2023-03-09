@@ -9,8 +9,8 @@ widgets, or even use custom widgets defined in Bailo.
 ## Example / minimal schemas
 
 Bailo includes both an example schema for uploads and for deployments. You can find them in
-`server/scripts/example_schemas`. It is important to note that these schemas contain all of mandatory fields that the
-application needs in order to run. These fields are hard-coded in various places in the source code.
+`backend/src/scripts/example_schemas`. It is important to note that these schemas contain all of mandatory fields that
+the application needs in order to run. These fields are hard-coded in various places in the source code.
 
 ## Create a schema
 
@@ -199,8 +199,9 @@ unwanted additional data, but this can be removed by the user if this happens.
 ## Uploading a schema
 
 There are two ways of uploading a schema to Bailo. The first is by manually adding it to the `schemas` collection in
-Mongo directly, or, by using the addUploadSchemas.ts / addDeploymentScript.ts scripts found within `server/scripts`.
-This process is not currently very graceful and requires some minor editing of the scripts themselves.
+Mongo directly, or, by using the addUploadSchemas.ts / addDeploymentScript.ts scripts found within
+`backend/src/scripts`. This process is not currently very graceful and requires some minor editing of the scripts
+themselves.
 
 First, you will need to change the import at the top of the file so that it points to your new schema, and not the
 minimal schema. Next, where we call `createSchema()` you will need to amend the supplied parameters of `name` and

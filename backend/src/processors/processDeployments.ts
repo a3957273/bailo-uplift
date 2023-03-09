@@ -58,7 +58,7 @@ export default async function processDeployments() {
           Authorization: authorisation,
         },
         agent: httpsAgent,
-      } as RequestInit).then((res: any) => {
+      }).then((res: any) => {
         logger.info({
           status: res.status,
         })
@@ -77,7 +77,7 @@ export default async function processDeployments() {
                 Authorization: authorisation,
               },
               agent: httpsAgent,
-            } as RequestInit
+            }
           )
 
           if (res.status >= 400) {
@@ -96,7 +96,7 @@ export default async function processDeployments() {
             Authorization: authorisation,
           },
           agent: httpsAgent,
-        } as RequestInit
+        }
       )
 
       if (mountPostRes.status >= 400) {
@@ -113,7 +113,7 @@ export default async function processDeployments() {
           'Content-Type': 'application/vnd.docker.distribution.manifest.v2+json',
         },
         agent: httpsAgent,
-      } as RequestInit)
+      })
 
       if (manifestPutRes.status >= 400) {
         throw new Error(`Invalid status response in manifest put: ${manifestPutRes.status}`)

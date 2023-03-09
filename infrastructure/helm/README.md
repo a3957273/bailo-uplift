@@ -29,7 +29,7 @@ image:
 ---
 image:
   repository: some.repository.com/bailo
-  tag: 'latest'
+  tag: "latest"
 ```
 
 This image can be built with `docker build -t bailo .` in the root directory. This guide assumes the overrides file is

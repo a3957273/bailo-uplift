@@ -4,7 +4,7 @@ import DocsWrapper from 'src/docs/DocsWrapper'
 
 Checklist for adding an endpoint to Bailo:
 
-1. Define your route in `server/routes/v1/<file>.ts`:
+1. Define your route in `backend/src/routes/v1/<file>.ts`:
 
 ```typescript
 import { NextFunction, Request, Response } from 'express'
@@ -22,7 +22,7 @@ export const echoRequest = [
   // actual route handler
   async (req: Request, res: Response) => {
     if (!req.query.message) {
-      // throw an error, more in server/utils/result.ts
+      // throw an error, more in backend/src/utils/result.ts
       // first argument is server-only log data, second argument is user facing message
       throw BadReq({}, 'No message provided')
     }
@@ -37,7 +37,7 @@ export const echoRequest = [
 ]
 ```
 
-2. Add the route to the router to `server/index.ts`:
+2. Add the route to the router to `backend/src/routes.ts`:
 
 ```typescript
 import { getEcho } from './routes/v1/admin.js'
@@ -45,7 +45,7 @@ import { getEcho } from './routes/v1/admin.js'
 server.get('/api/v1/echo', ...getEcho)
 ```
 
-3. Add tests in `server/routes/v1/<file>.spec.ts`:
+3. Add tests in `backend/src/routes/v1/<file>.spec.ts`:
 
 ```typescript
 describe('test echo route', () => {
@@ -56,7 +56,7 @@ describe('test echo route', () => {
 })
 ```
 
-4. Document the endpoint using OpenAPI in `server/routes/v1/specification.ts`
+4. Document the endpoint using OpenAPI in `backend/src/routes/v1/specification.ts`
 5. Create a UI binding in `data/<file>.ts`:
 
 ```typescript

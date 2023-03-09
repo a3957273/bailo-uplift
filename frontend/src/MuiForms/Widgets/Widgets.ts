@@ -13,7 +13,7 @@ import TextWidget from '../TextWidget/TextWidget'
 import UpDownWidget from '../UpDownWidget/UpDownWidget'
 import URLWidget from '../URLWidget/URLWidget'
 
-const Widgets = {
+const barrel = {
   CheckboxWidget,
   CheckboxesWidget,
   ColorWidget,
@@ -30,4 +30,4 @@ const Widgets = {
   URLWidget,
 }
 
-export default Widgets
+export default barrel

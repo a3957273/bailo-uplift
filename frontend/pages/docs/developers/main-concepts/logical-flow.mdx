@@ -17,12 +17,12 @@ import bailoMMDiagram from '../../../../public/mm-diagram.png'
    `pages`. `[xxx].tsx` files accept any route, `xxx.tsx` files allow only that specific route.
 2. Data is loaded using [SWR](https://swr.vercel.app/). Data loaders are stored in `./data`. Each one exposes variables
    to specify if it is loading, errored, data, etc.
-3. Requests to the backend get routed through [express](https://expressjs.com/) within `server/index.ts`. Each route is
-   an array with all items being middleware except the last, which is the handler (`[...middleware, handler]`).
-4. Routes interact with the database via `mongoose`, which stores models in `./server/models`.
+3. Requests to the backend get routed through [express](https://expressjs.com/) within `backend/src/index.ts`. Each
+   route is an array with all items being middleware except the last, which is the handler (`[...middleware, handler]`).
+4. Routes interact with the database via `mongoose`, which stores models in `./backend/src/models`.
 
 Some processing is done away from the main thread, when it is expected to take longer than a few milliseconds. These are
-posted to a `mongodb` queue and processed by handlers in the `server/processors` folder. Mongodb queues are handled
-invisibly by `p-mongo-queue` (`server/utils/queues.ts`).
+posted to a `mongodb` queue and processed by handlers in the `backend/src/processors` folder. Mongodb queues are handled
+invisibly by `p-mongo-queue` (`backend/src/utils/queues.ts`).
 
 export default ({ children }) => <DocsWrapper>{children}</DocsWrapper>
